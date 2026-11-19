@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#c91520">
+<title>J&T Batam - Pencarian Alamat & Kode Sortir</title>
+<style>
+:root{--red:#c91520;--red2:#ed3038;--ink:#202631;--muted:#667085;--line:#e4e8ef;--bg:#f3f5f8;--white:#fff;--blue:#1265a8;--green:#147a50;--amber:#8a5a00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+header{background:linear-gradient(135deg,#a90f18,#e52b35);color:#fff;padding:22px 16px 26px}
+.wrap{max-width:980px;margin:auto}.brand{font-size:12px;letter-spacing:1.5px;font-weight:800;opacity:.9}
+h1{font-size:25px;margin:9px 0 7px}.subtitle{font-size:13px;line-height:1.5;opacity:.95}
+main{max-width:980px;margin:16px auto;padding:0 13px 35px}
+.search{background:#fff;border:1px solid var(--line);border-radius:17px;padding:15px;box-shadow:0 5px 18px #1018280c}
+label{display:block;font-size:12px;font-weight:800;color:#555f70;margin-bottom:8px}
+input{width:100%;border:1px solid #ccd3df;border-radius:12px;padding:15px 13px;font-size:16px;outline:none}
+input:focus{border-color:var(--red);box-shadow:0 0 0 3px #c9152018}
+.examples{font-size:11px;color:var(--muted);line-height:1.7;margin-top:8px}
+.controls{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+button{font:inherit;cursor:pointer}
+.chip{border:1px solid var(--line);border-radius:30px;background:white;color:#414958;padding:9px 12px;font-size:12px;font-weight:700}
+.chip.active{background:var(--red);color:white;border-color:var(--red)}
+.quick{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.quick button{border:0;background:#f1f3f6;border-radius:8px;padding:7px 9px;font-size:11px;color:#485163}
+.status{font-size:12px;color:var(--muted);margin:14px 2px 9px}
+.group-title{font-size:14px;font-weight:800;margin:17px 2px 9px;display:flex;align-items:center;gap:8px}
+.pill{font-size:10px;padding:4px 7px;border-radius:20px;background:#fcebed;color:#a80e18}
+.results{display:grid;grid-template-columns:1fr;gap:9px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px;box-shadow:0 3px 12px #10182808}
+.rowtop{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.code{font-size:17px;font-weight:900;color:var(--red)}
+.tag{font-size:10px;font-weight:800;border-radius:20px;padding:5px 8px;background:#f1f3f6;color:#4d5666;white-space:nowrap}
+.area{font-size:14px;line-height:1.55;margin:9px 0 10px}
+.match{font-size:11px;color:var(--green);font-weight:700;margin:0 0 10px}
+.actions{display:flex;gap:7px;flex-wrap:wrap}
+.action{display:inline-block;text-decoration:none;border:0;border-radius:9px;padding:9px 11px;font-size:11px;font-weight:800;background:#eef1f5;color:#303947}
+.action.map{background:#e8f3ff;color:#075b9b}
+.empty{padding:20px;background:#fff;border:1px dashed #cbd2df;border-radius:13px;color:var(--muted);font-size:13px;line-height:1.5}
+.notice{background:#fff8e8;border:1px solid #f0dfb7;border-radius:13px;padding:12px;font-size:11px;line-height:1.55;color:#73521b;margin-top:16px}
+.details{margin-top:13px;background:white;border:1px solid var(--line);border-radius:13px;padding:12px}
+details summary{font-size:12px;font-weight:800;cursor:pointer}
+.listall{font-size:12px;line-height:1.7;color:#444d5b}
+footer{text-align:center;color:#89909d;font-size:11px;padding:18px}
+@media(min-width:650px){.results{grid-template-columns:1fr 1fr}h1{font-size:30px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="brand">DIREKTORI SORTIR • BATAM</div>
+<h1>📦 Pencarian Alamat & Kode Paket</h1>
+<div class="subtitle">Cari nama jalan, perumahan, kampung, kelurahan, atau patokan. Sistem menampilkan kecocokan kode Area 1–40 dan referensi tujuan BTH secara terpisah.</div>
+</div></header>
+<main>
+<section class="search">
+<label for="q">MASUKKAN ALAMAT / NAMA LOKASI / KODE</label>
+<input id="q" type="search" placeholder="Contoh: Kampung Melayu, Bengkong, BTH 12, OPBC..." autocomplete="off">
+<div class="examples">Contoh pencarian: <b>Baloi</b> • <b>Sei Panas</b> • <b>Hang Kasturi</b> • <b>Orchid</b> • <b>31</b></div>
+<div class="controls">
+<button class="chip active" data-mode="all">Semua kecocokan</button>
+<button class="chip" data-mode="area">Kode area 1–40</button>
+<button class="chip" data-mode="bth">Kode BTH</button>
+</div>
+<div class="quick">
+<button data-q="Kampung Melayu">Kampung Melayu</button>
+<button data-q="Bengkong">Bengkong</button>
+<button data-q="Baloi">Baloi</button>
+<button data-q="Sei Panas">Sei Panas</button>
+<button data-q="OPBC">OPBC</button>
+</div>
+</section>
+<div class="status" id="status" aria-live="polite"></div>
+<div id="areaSection"><div class="group-title">Kode area 1–40 <span class="pill" id="areaCount">0 hasil</span></div><div class="results" id="areaResults"></div></div>
+<div id="bthSection"><div class="group-title">Referensi wilayah BTH pada foto <span class="pill" id="bthCount">0 hasil</span></div><div class="results" id="bthResults"></div></div>
+<div id="outletSection"><div class="group-title">Referensi kode outlet BTH tambahan <span class="pill" id="outletCount">0 hasil</span></div><div class="results" id="outletResults"></div></div>
+<div class="notice"><b>Penting untuk sortir:</b> hasil ini adalah pencocokan teks berdasarkan daftar area yang kamu berikan. Kode area 1–40, wilayah BTH pada foto, dan referensi outlet BTH tambahan adalah tiga kelompok data berbeda. Referensi outlet tambahan berasal dari sumber publik pihak ketiga (artikel 2024), bukan daftar sortir resmi. Periksa alamat lengkap, kecamatan/kelurahan, dan sistem sortir internal sebelum memindahkan paket. Google Maps hanya membantu mencari lokasi, bukan memverifikasi kode gudang.</div>
+<div class="details"><details><summary>Lihat catatan data dan kode yang belum tersedia</summary><div class="listall">
+<p>Data area yang tersedia: 01–11, 15–18, 20, 25, 31, 33–35, 37–40. Kode lain belum diberikan.</p>
+<p>Referensi BTH dari foto: BTH 01, 02, 03, 04, 05, 07, 08, 09, 12, 15, 16, 21, dan 31.</p>
+<p>Referensi outlet tambahan dari artikel publik bertanggal 23 November 2024: BTH10 Mitra Junction/Teluk Tering; BTH13 Tunas Regency/Tanjung Uncang; BTH17 Mega Legenda Extension; BTH19 Kaliban Superblock/Kabil; BTH26 Greenland/Teluk Tering; BTH29 Trikarsa Equalita/Sadai. Ini adalah kode outlet yang dilaporkan pihak ketiga, bukan konfirmasi zona sortir gudang.</p><p>Daftar lama yang belum diverifikasi: BTH06 Bulang dan BTH11 Penuin. Jangan gunakan sebagai tujuan sortir tanpa konfirmasi supervisor/sistem internal.</p><p>Daftar ini tidak menambahkan wilayah atau kode yang belum ada pada sumber yang kamu kirim.</p>
+</div></details></div>
+</main>
+<footer>Direktori pencarian internal • <a href="https://jet.co.id/finddroppoint" target="_blank" rel="noopener">Cek drop point resmi J&T</a> • Gunakan sebagai alat bantu, bukan pengganti instruksi sortir resmi</footer>
+<script>
+const areas=[
+[1,"Kampung Melayu, Bawean, Taman Sentosa Indah"],
+[2,"Bengkong Indah Atas, Aljabar"],
+[3,"Gading Mas, Showroom Ceri, Ruko Orchid Business Center"],
+[4,"Baloi Kolam"],
+[5,"Bandar Mas, Tanah Mas, Bukit Beruntung"],
+[6,"Puriloka, Aku Tahu, Nujaya, Pondok Asri"],
+[7,"Kampung Belimbing/Durian, Pasar Cipuan, Nicco Residence, Ruko Tropicana, Universitas, Masjid Umul Haqq"],
+[8,"Permata Indah, Cahya Garden"],
+[9,"Bengkong Nusantara, Kavling Harapan Jaya"],
+[10,"Bengkong Kolam"],
+[11,"Bengkong Sadai, Gang Hang Kasturi, Hang Jabat, Jalan Sumatra, Golden Prawn"],
+[15,"Sei Nayon, Gang Permata, Perumahan Putra Kelana Jaya"],
+[16,"Mahkota Raya, Kintamani, Komplek Royal Grande, Perumahan Winner Milenium, Komplek Trikarsa"],
+[17,"Pasir Putih, Coastarina, The Monde Residence"],
+[18,"Swadaya 2, gang dengan nama jenis burung, Jalan Pejajaran, Singosari, Majapahit"],
+[20,"Bengkong Baru, Bengkong Swadebi, gang dengan nama jenis buah"],
+[25,"Bengkong Bawah, gang dengan nama bunga, Gang Jati Kusuma, Blok F, Flamboyan, PT Ali Barokah, Villa Mas"],
+[31,"Politeknik Batam, Engku Putri, Purimas, Niaga Mas, Mega Mall"],
+[33,"Greend, Pollux Habibie, Perumahan Citra Batam"],
+[34,"Mitra Raya, Kampung Nanas, Citra Indah, Perumahan Villa Raflesia, Orchid Suite"],
+[35,"Perumahan Maselia, Anggrek Sari, Centre Point"],
+[37,"Palm Spring, Orchid Park"],
+[38,"Eden Park, Perumahan Anggrek Mas, Pulomas"],
+[39,"Puri Casablanca, Polresta Barelang, Baloi Ditpam, Queen Victoria Apartment, Ruko OPBC"],
+[40,"Taman Golf Sukajadi, Komplek Taman Niaga, The Icon Central"]
+];
+const outletRefs=[
+["BTH 10","Mitra Junction, Teluk Tering, Batam Kota","Referensi outlet publik 2024"],
+["BTH 13","Tunas Regency, Tanjung Uncang, Sagulung","Referensi outlet publik 2024"],
+["BTH 17","Mega Legenda Extension, Batam Kota","Referensi outlet publik 2024"],
+["BTH 19","Kaliban Superblock, Kabil, Nongsa","Referensi outlet publik 2024"],
+["BTH 26","Ruko Greenland, Teluk Tering, Batam Kota","Referensi outlet publik 2024"],
+["BTH 29","Trikarsa Equalita, Sadai, Bengkong","Referensi outlet publik 2024"],
+["BTH 06","Bulang","Daftar lama — perlu verifikasi"],
+["BTH 11","Penuin","Daftar lama — perlu verifikasi"]
+];
+const bths=[
+["BTH 01","Nagoya, Batam Ampar"],
+["BTH 02","Batam Kota, Belian, Legenda"],
+["BTH 03","Batu Aji"],
+["BTH 04","Tanjung Buntung, Bengkong"],
+["BTH 05","Tiban, Sekupang, Sei Harapan"],
+["BTH 07","Sagulung sekitarnya"],
+["BTH 08","Belakang Padang"],
+["BTH 09","Piayu, Sei Beduk"],
+["BTH 12","Nongsa, Teluk Mata Ikan, Kampung Melayu"],
+["BTH 15","Sei Panas, Batam Centre"],
+["BTH 16","Barelang, Rempang"],
+["BTH 21","Aviari sekitarnya"],
+["BTH 31","Teluk Bakau, Punggur"]
+];
+let mode="all";
+const q=document.getElementById("q");
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[.,/()-]/g," ").replace(/\s+/g," ").trim();
+const esc=s=>s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function isCodeQuery(term,code,kind){
+ const digits=term.replace(/\D/g,"");
+ if(!digits)return false;
+ if(kind==="area") return String(code)===String(Number(digits)) || String(code).padStart(2,"0")===digits.padStart(2,"0");
+ return ("bth"+String(code).replace(/\D/g,""))===term.replace(/\s/g,"") || String(code).replace(/\D/g,"")===digits;
+}
+function matches(text,term,code,kind){
+ if(!term)return true;
+ const n=norm(term), hay=norm(text);
+ if(hay.includes(n))return true;
+ if(isCodeQuery(term,code,kind))return true;
+ // Search individual terms, but require every meaningful word to occur.
+ const words=n.split(" ").filter(w=>w.length>1);
+ return words.length>1 && words.every(w=>hay.includes(w));
+}
+function card(code,desc,type,query,term){
+ const loc=encodeURIComponent(query+", Batam, Kepulauan Riau, Indonesia");
+ return `<article class="card"><div class="rowtop"><div class="code">${esc(code)}</div><div class="tag">${esc(type)}</div></div><div class="area">${esc(desc)}</div><div class="match">✓ Nama lokasi cocok dengan kata pencarian</div><div class="actions"><a class="action map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${loc}">📍 Cek di Google Maps</a><button class="action" data-copy="${esc(code+" — "+desc)}">Salin hasil</button></div></article>`;
+}
+function render(){
+ const term=q.value.trim();
+ const area=mode==="bth"?[]:areas.filter(x=>matches(x[1],term,x[0],"area"));
+ const bth=mode==="area"?[]:bths.filter(x=>matches(x[1],term,x[0],"bth"));
+ const outlets=mode==="area"?[]:outletRefs.filter(x=>matches(x[1],term,x[0],"bth"));
+ document.getElementById("areaSection").hidden=mode==="bth";
+ document.getElementById("bthSection").hidden=mode==="area";
+ document.getElementById("outletSection").hidden=mode==="area";
+ document.getElementById("areaCount").textContent=area.length+" hasil";
+ document.getElementById("bthCount").textContent=bth.length+" hasil";
+ document.getElementById("outletCount").textContent=outlets.length+" hasil";
+ document.getElementById("status").textContent=term?`Hasil pencarian untuk “${term}” — ${area.length+bth.length+outlets.length} kecocokan dari daftar yang tersedia.`:"Semua data ditampilkan. Ketik lokasi untuk mempersempit hasil.";
+ document.getElementById("areaResults").innerHTML=area.length?area.map(x=>card("AREA "+String(x[0]).padStart(2,"0"),x[1],"Kode area",x[1],term)).join(""):'<div class="empty">Tidak ada kecocokan pada daftar area yang tersedia.</div>';
+ document.getElementById("bthResults").innerHTML=bth.length?bth.map(x=>card(x[0],x[1],"Referensi BTH",x[1],term)).join(""):'<div class="empty">Tidak ada kecocokan pada daftar BTH yang tersedia.</div>';
+ document.getElementById("outletResults").innerHTML=outlets.length?outlets.map(x=>card(x[0],x[1]+" • "+x[2],"Referensi outlet",x[1],term)).join(""):'<div class="empty">Tidak ada kecocokan pada referensi outlet tambahan.</div>';
+}
+document.querySelectorAll(".chip").forEach(btn=>btn.addEventListener("click",()=>{mode=btn.dataset.mode;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x===btn));render()}));
+document.querySelectorAll(".quick button").forEach(btn=>btn.addEventListener("click",()=>{q.value=btn.dataset.q;render()}));
+q.addEventListener("input",render);
+document.addEventListener("click",e=>{const b=e.target.closest("[data-copy]");if(b){const t=b.getAttribute("data-copy");if(navigator.clipboard?.writeText)navigator.clipboard.writeText(t).then(()=>{b.textContent="Tersalin"}).catch(()=>{});}});
+render();
+</script>
+</body></html>
